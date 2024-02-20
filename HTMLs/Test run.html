@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Player</title>
+</head>
+<body>
+  <h1>Audio Player</h1>
+
+  <ul id="song-list">
+    <li data-scr="/Music/WakeUpGetHyped/allthat.mp3"> All That </li>
+    <li data-scr="/Music/WakeUpGetHyped/dreams.mp3"> Dreams </li>
+    <li data-scr="/Music/WakeUpGetHyped/endlessmotion.mp3"> Endless Motion </li>
+    <li data-scr="/Music/WakeUpGetHyped/erf.mp3"> E.R.F. </li>
+    <li data-scr="/Music/WakeUpGetHyped/groovyhiphop.mp3"> Groovy Hiphop </li>
+    <li data-scr="/Music/WakeUpGetHyped/hipjazz.mp3"> Hip Jazz </li>
+    <li data-scr="/Music/WakeUpGetHyped/popdance.mp3"> Pop Dance </li>
+    <li data-scr="/Music/WakeUpGetHyped/retrosoul.mp3"> Retro Soul </li>
+  </ul>
+
+  <audio id="audio-player" controls autoplay loop>
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Get references to the song list and audio player
+    const songList = document.getElementById('song-list');
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Add event listener to the song list
+    songList.addEventListener('click', function(event) {
+      // Check if the clicked element is an <li> element
+      if (event.target.tagName === 'LI') {
+        // Get the source of the clicked song
+        const songSource = event.target.getAttribute('data-src');
+
+        // Set the source of the audio player to the clicked song
+        audioPlayer.src = songSource;
+
+        audioPlayer.play();
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+<li>Song 1</li>
+    <li>Song 2</li>
+    <li>Song 3</li>
+    <li>Song 1</li>
+    <li>Song 2</li>
+    <li>Song 3</li>
+    <li>Song 1</li>
+    <li>Song 2</li>
+
+
+'/Music/WakeUpGetHyped/allthat.mp3',
+        '/Music/WakeUpGetHyped/dreams.mp3',
+        '/Music/WakeUpGetHyped/endlessmotion.mp3',
+        '/Music/WakeUpGetHyped/erf.mp3',
+        '/Music/WakeUpGetHyped/groovyhiphop.mp3',
+        '/Music/WakeUpGetHyped/hipjazz.mp3',
+        '/Music/WakeUpGetHyped/popdance.mp3',
+        '/Music/WakeUpGetHyped/retrosoul.mp3'

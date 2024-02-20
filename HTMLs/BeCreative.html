@@ -1,12 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-<audio controls>
-    <source src="adventure.mp3">
-    <source src="badass.mp3">
-    <source src="embracingthesky.mp3">
-    <source src="inspire.mp3">
-    <source src="memories.mp3">
-    <source src="onrepeat.mp3">
-    <source src="paperback.mp3">
-</audio>
+<html>
+<head>
+  <title>Audio Player</title>
+</head>
+<body>
+  <h1>Audio Player</h1>
+
+  <ul id="song-list">
+    <li>Adventure</li>
+    <li>Badass</li>
+    <li>Embracing the Sky</li>
+    <li>Inspire</li>
+    <li>Memories</li>
+    <li>On Repeat</li>
+    <li>Paperback</li>
+  </ul>
+
+  <p> Now playing </p>
+<p id="current-song">
+    None
+</p>
+
+  <audio id="audio-player" controls>
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Get references to the song list and audio player
+    const songList = document.getElementById('song-list');
+    const audioPlayer = document.getElementById('audio-player');
+    let currentSongIndex = 0;
+
+    // Add event listener to the song list
+    songList.addEventListener('click', function(event) {
+      // Check if the clicked element is an <li> element
+      if (event.target.tagName === 'LI') {
+        // Remove the 'active' class from all songs
+        const songs = songList.getElementsByTagName('li');
+        for (let i = 0; i < songs.length; i++) {
+          songs[i].classList.remove('active');
+        }
+
+        // Add the 'active' class to the clicked song
+        event.target.classList.add('active');
+
+        // Get the index of the clicked song
+        currentSongIndex = Array.prototype.indexOf.call(songList.children, event.target);
+
+        // Play the clicked song
+        playSong(currentSongIndex);
+      }
+    });
+
+    // Function to play the song at the specified index
+    function playSong(index) {
+  // Get the source of the song
+  const songSource = getSongSource(index);
+
+  // Set the source of the audio player to the song
+  audioPlayer.src = songSource;
+
+  // Play the audio
+  audioPlayer.play();
+
+  // Update the currently playing song display
+  const currentSongElement = document.getElementById('current-song');
+  currentSongElement.textContent = songList.children[index].textContent;
+}
+
+    // Function to get the source of the song based on its index
+    function getSongSource(index) {
+      // Define an array of song sources
+      const songSources = [
+        '/Music/Creative/adventure.mp3',
+        '/Music/Creative/badass.mp3',
+        '/Music/Creative/embracingthesky.mp3',
+        '/Music/Creative/inspire.mp3',
+        '/Music/Creative/memories.mp3',
+        '/Music/Creative/onrepeat.mp3',
+        '/Music/Creative/paperback.mp3'
+      ];
+
+      // Return the source of the song at the specified index
+      return songSources[index];
+    }
+
+    // Event listener for the 'ended' event of the audio player
+    audioPlayer.addEventListener('ended', function() {
+      // Increment the current song index
+      currentSongIndex = (currentSongIndex + 1) % songList.children.length;
+
+      // Remove the 'active' class from all songs
+      const songs = songList.getElementsByTagName('li');
+      for (let i = 0; i < songs.length; i++) {
+        songs[i].classList.remove('active');
+      }
+
+      // Add the 'active' class to the next song
+      songs[currentSongIndex].classList.add('active');
+
+      // Play the next song
+      playSong(currentSongIndex);
+    });
+  </script>
+</body>
 </html>
