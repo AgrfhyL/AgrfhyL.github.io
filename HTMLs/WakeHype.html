@@ -27,51 +27,31 @@
   </audio>
 
   <script>
-    // Get references to the song list and audio player
     const songList = document.getElementById('song-list');
     const audioPlayer = document.getElementById('audio-player');
     let currentSongIndex = 0;
 
-    // Add event listener to the song list
     songList.addEventListener('click', function(event) {
-      // Check if the clicked element is an <li> element
       if (event.target.tagName === 'LI') {
-        // Remove the 'active' class from all songs
         const songs = songList.getElementsByTagName('li');
         for (let i = 0; i < songs.length; i++) {
           songs[i].classList.remove('active');
         }
-
-        // Add the 'active' class to the clicked song
         event.target.classList.add('active');
-
-        // Get the index of the clicked song
         currentSongIndex = Array.prototype.indexOf.call(songList.children, event.target);
-
-        // Play the clicked song
         playSong(currentSongIndex);
       }
     });
 
-    // Function to play the song at the specified index
     function playSong(index) {
-  // Get the source of the song
   const songSource = getSongSource(index);
-
-  // Set the source of the audio player to the song
   audioPlayer.src = songSource;
-
-  // Play the audio
   audioPlayer.play();
-
-  // Update the currently playing song display
   const currentSongElement = document.getElementById('current-song');
   currentSongElement.textContent = songList.children[index].textContent;
 }
 
-    // Function to get the source of the song based on its index
     function getSongSource(index) {
-      // Define an array of song sources
       const songSources = [
         '/Music/WakeUpGetHyped/allthat.mp3',
         '/Music/WakeUpGetHyped/dreams.mp3',
@@ -82,26 +62,16 @@
         '/Music/WakeUpGetHyped/popdance.mp3',
         '/Music/WakeUpGetHyped/retrosoul.mp3'
       ];
-
-      // Return the source of the song at the specified index
       return songSources[index];
     }
 
-    // Event listener for the 'ended' event of the audio player
     audioPlayer.addEventListener('ended', function() {
-      // Increment the current song index
       currentSongIndex = (currentSongIndex + 1) % songList.children.length;
-
-      // Remove the 'active' class from all songs
       const songs = songList.getElementsByTagName('li');
       for (let i = 0; i < songs.length; i++) {
         songs[i].classList.remove('active');
       }
-
-      // Add the 'active' class to the next song
       songs[currentSongIndex].classList.add('active');
-
-      // Play the next song
       playSong(currentSongIndex);
     });
   </script>
